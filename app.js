@@ -24,17 +24,17 @@ const questions = [
     {
         type: "input",
         name: "EmployeeName",
-        message: "Please enter your employee's name"
+        message: "Please enter your employee's name (or hit enter if you have no more to add)"
     },
     {
         type: "input",
         name: "EmployeeID",
-        message: "Please enter your employee's ID number"
+        message: "Please enter your employee's ID number (or hit enter if you have no more to add)"
     },
     {
         type: "input",
         name: "EmployeeEmail",
-        message: "Please enter your employee's email address"
+        message: "Please enter your employee's email address (or hit enter if you have no more to add)"
     },
     {
         type: "input",
@@ -68,52 +68,59 @@ const questions = [
     }
 ]
 
-inquirer.prompt(questions).then((answers) => {
-    const EmployeeRole = answers.EmployeeRole;
-    const EmployeeName = answers.EmployeeName;
-    const EmployeeID = answers.EmployeeID;
-    const EmployeeEmail = answers.EmployeeEmail;
-    const School = answers.School;
-    const GitHub = answers.GitHub;
-    const OfficeNumber = answers.OfficeNumber;
-    if (EmployeeRole == 'Manager') {
-        const manager = new Manager(EmployeeName, EmployeeID, EmployeeEmail, OfficeNumber);
-        team.push(manager);
-        console.log(team);
-        inquirer.prompt(questions);
-    }
-    else if (EmployeeRole == 'Engineer') {
-        const engineer = new Engineer(EmployeeName, EmployeeID, EmployeeEmail, GitHub);
-        team.push(engineer);
-        console.log(team);
-        inquirer.prompt(questions);
-    }
-    else if (EmployeeRole == 'Intern') {
-        const intern = new Intern(EmployeeName, EmployeeID, EmployeeEmail, School);
-        team.push(intern);
-        console.log(team);
-        inquirer.prompt(questions);
-    }
+function askUser() {
+    inquirer.prompt(questions).then((answers) => {
+        const EmployeeRole = answers.EmployeeRole;
+        const EmployeeName = answers.EmployeeName;
+        const EmployeeID = answers.EmployeeID;
+        const EmployeeEmail = answers.EmployeeEmail;
+        const School = answers.School;
+        const GitHub = answers.GitHub;
+        const OfficeNumber = answers.OfficeNumber;
+        if (EmployeeRole == 'Manager') {
+            const manager = new Manager(EmployeeName, EmployeeID, EmployeeEmail, OfficeNumber);
+            team.push(manager);
+            console.log(team);
+            askUser()
+        }
+        else if (EmployeeRole == 'Engineer') {
+            const engineer = new Engineer(EmployeeName, EmployeeID, EmployeeEmail, GitHub);
+            team.push(engineer);
+            console.log(team);
+            askUser()
+        }
+        else if (EmployeeRole == 'Intern') {
+            const intern = new Intern(EmployeeName, EmployeeID, EmployeeEmail, School);
+            team.push(intern);
+            console.log(team);
+            askUser()
+        }
 
-    // After the user has input all employees desired, call the `render` function (required
-    // above) and pass in an array containing all employee objects; the `render` function will
-    // generate and return a block of HTML including templated divs for each employee!
+        // After the user has input all employees desired, call the `render` function (required
+        // above) and pass in an array containing all employee objects; the `render` function will
+        // generate and return a block of HTML including templated divs for each employee!
 
-    else {
-        const HTML = render(team);
-        console.log(HTML);
-        fs.writeFileSync("./outputs/team.html", HTML)
-    }
-
-
-    // After you have your html, you're now ready to create an HTML file using the HTML
-    // returned from the `render` function. Now write it to a file named `team.html` in the
-    // `output` folder. You can use the variable `outputPath` above target this location.
-    // Hint: you may need to check if the `output` folder exists and create it if it
-    // does not.
+        else if (EmployeeRole == "I've finished adding my team") {
+            writeFile();
+        }
 
 
-});
+        // After you have your html, you're now ready to create an HTML file using the HTML
+        // returned from the `render` function. Now write it to a file named `team.html` in the
+        // `output` folder. You can use the variable `outputPath` above target this location.
+        // Hint: you may need to check if the `output` folder exists and create it if it
+        // does not.
+
+
+    });
+}
+function writeFile() {
+    const HTML = render(team);
+    console.log(HTML);
+    fs.writeFileSync("./outputs/team.html", HTML)
+}
+
+askUser()
 // HINT: each employee type (manager, engineer, or intern) has slightly different
 // information; write your code to ask different questions via inquirer depending on
 // employee type.
