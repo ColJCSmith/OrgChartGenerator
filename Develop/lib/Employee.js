@@ -10,7 +10,7 @@ class Employee {
     getName() {
         return this.name;
     }
-    getID() {
+    getId() {
         return this.id;
     }
     getEmail() {
@@ -21,14 +21,3 @@ class Employee {
     }
 }
 module.exports = Employee;
-
-// employee = new Employee('Gus', 36, 'gus@companyX.com')
-// employee = new Employee(EmployeeName, EmployeeID, EmployeeEmail);
-
-// printInfo() {
-//     for (const key in this) {
-//         console.log(`${key}: ${this[key]}`);
-//     }
-// }
-
-// employee.printInfo();

@@ -7,7 +7,7 @@ class Engineer extends Employee {
         super(name, id, email, github);
         this.github = github;
     }
-    getGitHub() {
+    getGithub() {
         return this.github;
     }
     getRole() {
@@ -16,17 +16,5 @@ class Engineer extends Employee {
 }
 module.exports = Engineer;
 
-
-// const engineer = new Engineer(EmployeeName, EmployeeID, EmployeeEmail, 'GusGus');
-// const engineer = new Engineer('Gus', 36, 'gus@companyX.com', 'GusGus');
-
-// printInfo() {
-//     console.log(`Name: ${this.name}`);
-//     console.log(`ID: ${this.id}`);
-//     console.log(`email: ${this.email}`);
-//     console.log(`GitHub: ${this.github}`);
-// }
-
-// engineer.printInfo();
 
 

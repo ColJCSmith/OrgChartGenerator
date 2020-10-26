@@ -80,19 +80,19 @@ inquirer.prompt(questions).then((answers) => {
         const manager = new Manager(EmployeeName, EmployeeID, EmployeeEmail, OfficeNumber);
         team.push(manager);
         console.log(team);
-        // inquirer.prompt(questions);
+        inquirer.prompt(questions);
     }
     else if (EmployeeRole == 'Engineer') {
         const engineer = new Engineer(EmployeeName, EmployeeID, EmployeeEmail, GitHub);
         team.push(engineer);
         console.log(team);
-        // inquirer.prompt(questions);
+        inquirer.prompt(questions);
     }
     else if (EmployeeRole == 'Intern') {
         const intern = new Intern(EmployeeName, EmployeeID, EmployeeEmail, School);
         team.push(intern);
         console.log(team);
-        // inquirer.prompt(questions);
+        inquirer.prompt(questions);
     }
 
     // After the user has input all employees desired, call the `render` function (required
@@ -100,8 +100,11 @@ inquirer.prompt(questions).then((answers) => {
     // generate and return a block of HTML including templated divs for each employee!
 
     else {
-        // inquirer.prompt(questions);
+        const HTML = render(team);
+        console.log(HTML);
+        fs.writeFileSync("./outputs/team.html", HTML)
     }
+
 
     // After you have your html, you're now ready to create an HTML file using the HTML
     // returned from the `render` function. Now write it to a file named `team.html` in the
@@ -109,9 +112,6 @@ inquirer.prompt(questions).then((answers) => {
     // Hint: you may need to check if the `output` folder exists and create it if it
     // does not.
 
-    const HTML = render(team);
-    console.log(HTML);
-    fs.writeFileSync("./outputs/team.html", HTML)
 
 });
 // HINT: each employee type (manager, engineer, or intern) has slightly different
